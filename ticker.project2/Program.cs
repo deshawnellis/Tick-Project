@@ -54,7 +54,7 @@ namespace ticker.project2
                         var columns = new string[] { "Stock Information", "Market Info", "Misc." };
                         Table table = new Table(Alignment.Center, Alignment.Center, columns);
                         table.AddRow($"Stock Name: {stockDetailData.results.name}", $"Last Market Price: {openCloseObject.close.ToString("C")}", $"Employees: {stockDetailData.results.total_employees}")
-                             .AddRow($"Ticker Symbol: {openCloseObject.symbol}", "short text", "word");
+                             .AddRow($"Ticker Symbol: {openCloseObject.symbol}", "short text", "word");=
 
                         Console.Write(table.ToString());
 
