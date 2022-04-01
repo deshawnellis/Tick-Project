@@ -28,8 +28,8 @@ namespace ticker.project2.Models
         public int total_employees { get; set; }
         public string list_date { get; set; }
         public Branding branding { get; set; }
-        public int share_class_shares_outstanding { get; set; }
-        public int weighted_shares_outstanding { get; set; }
+        public long share_class_shares_outstanding { get; set; }
+        public long weighted_shares_outstanding { get; set; }
     }
 
     public class DetailResult

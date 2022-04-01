@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BetterConsoleTables;
 using Newtonsoft.Json;
@@ -14,7 +16,25 @@ namespace ticker.project2
     {
         static async Task Main(string[] args)
         {
+            List<string> HistoryOfStockSearch = new List<string>();
             bool continueApplication = true;
+
+            //Request the User's email and validate that it's an email
+            Console.WriteLine("Enter you email Address:");
+            string emailAddress = Console.ReadLine();
+
+            Regex re = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+
+            // The IsMatch method is used to validate
+            // a string or to ensure that a string
+            // conforms to a particular pattern.
+            while (!re.IsMatch(emailAddress))
+            {
+                Console.WriteLine("That was not a proper email Address, please enter a proper email address:");
+                 emailAddress = Console.ReadLine();
+            }
+
+                
 
 
             Console.WriteLine("This application will give you your standard stock information based off the ticker symbol");
@@ -54,9 +74,11 @@ namespace ticker.project2
                         var columns = new string[] { "Stock Information", "Market Info", "Misc." };
                         Table table = new Table(Alignment.Center, Alignment.Center, columns);
                         table.AddRow($"Stock Name: {stockDetailData.results.name}", $"Last Market Price: {openCloseObject.close.ToString("C")}", $"Employees: {stockDetailData.results.total_employees}")
-                             .AddRow($"Ticker Symbol: {openCloseObject.symbol}", "short text", "word");=
+                             .AddRow($"Ticker Symbol: {openCloseObject.symbol}", "short text", "word");
 
                         Console.Write(table.ToString());
+
+                        HistoryOfStockSearch.Add($"Searched Stock {openCloseObject.symbol} at {DateTime.Now}");
 
 
                     }
@@ -78,6 +100,9 @@ namespace ticker.project2
 
             }
 
+            Console.WriteLine($"Here is all the stocks {emailAddress} searched");
+
+            HistoryOfStockSearch.ForEach(stock => Console.WriteLine(stock));
             return;
             
         }
